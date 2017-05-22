@@ -2,7 +2,87 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/antiquewhite"
-   >
+    android:background="@color/antiquewhite">
 
+    <RelativeLayout
+        android:id="@+id/rl_head"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/mainblue">
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="个人中心"
+            android:textColor="#ffffff"
+            android:textSize="25sp" />
+
+    </RelativeLayout>
+
+    <com.example.yuzelli.secondhand.widgets.RoundImageView
+        android:id="@+id/roundImageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/rl_head"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/head" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/roundImageView"
+        android:gravity="center"
+        android:text="sss"
+        android:textSize="30dp" />
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_name"
+        android:gravity="center"
+        android:text="sss"
+        android:textSize="30dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true">
+        <TextView
+            android:id="@+id/tv_updata"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/view_shape"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:layout_below="@+id/v_line6"
+            android:layout_marginTop="30dp"
+            android:text="修改"
+            android:textColor="#9A9A9A"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tv_add"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/view_shape"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:layout_below="@+id/v_line6"
+            android:layout_marginTop="30dp"
+            android:text="分享"
+            android:textColor="#9A9A9A"
+            android:textSize="20sp" />
+    </LinearLayout>
 </RelativeLayout>

@@ -12,6 +12,25 @@ public class UserInfo implements Serializable {
     private String pass;
     private String content;
 
+    private String niaji;
+    private String zhuangye;
+
+    public String getNiaji() {
+        return niaji;
+    }
+
+    public void setNiaji(String niaji) {
+        this.niaji = niaji;
+    }
+
+    public String getZhuangye() {
+        return zhuangye;
+    }
+
+    public void setZhuangye(String zhuangye) {
+        this.zhuangye = zhuangye;
+    }
+
     public String getName() {
         return name;
     }

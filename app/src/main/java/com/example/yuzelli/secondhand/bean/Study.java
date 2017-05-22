@@ -8,12 +8,32 @@ import java.io.Serializable;
 
 public class Study implements Serializable {
 
+    private int id;
     private String content;
+    private String title;
     private String phone;
 
-    public Study(String content, String phone) {
+    public Study(int id ,String title,String content, String phone) {
+        this.id = id;
+        this.title = title;
         this.content = content;
         this.phone = phone;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getContent() {

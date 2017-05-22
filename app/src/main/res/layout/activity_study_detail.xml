@@ -21,7 +21,7 @@
             android:src="@drawable/ic_left" />
 
         <TextView
-            android:id="@+id/tv_title"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -31,14 +31,42 @@
 
     </RelativeLayout>
     <LinearLayout
+        android:id="@+id/ll_content2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:layout_below="@+id/rl_head">
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="25sp"/>
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:scrollHorizontally="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+         />
+
+
+    </LinearLayout>
+    <LinearLayout
         android:id="@+id/ll_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_head"
-        android:orientation="horizontal">
+        android:layout_below="@+id/ll_content2"
+        android:orientation="vertical">
         <TextView
             android:id="@+id/tv_buy"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/view_shape"
             android:gravity="center"
@@ -47,14 +75,14 @@
             android:layout_marginRight="10dp"
             android:padding="10dp"
             android:layout_below="@+id/v_line6"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
-            android:text="求购"
+            android:text="求购电话：1313344"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:textColor="#9A9A9A"
             android:textSize="20sp" />
         <TextView
             android:id="@+id/tv_reply"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/view_shape"
@@ -62,9 +90,10 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:padding="10dp"
+            android:layout_gravity="center"
             android:layout_below="@+id/v_line6"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:text="回复"
             android:textColor="#9A9A9A"
             android:textSize="20sp" />

@@ -17,6 +17,7 @@ import com.example.yuzelli.secondhand.https.SharePreferencesUtil;
 import com.example.yuzelli.secondhand.utils.CommonAdapter;
 import com.example.yuzelli.secondhand.utils.ViewHolder;
 import com.example.yuzelli.secondhand.view.activity.AddStudyActivity;
+import com.example.yuzelli.secondhand.view.activity.StudyDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,13 +63,13 @@ public class StudyFragment extends BaseFragment {
         lvList.setAdapter(new CommonAdapter<Study>(getActivity(),list,R.layout.cell_study) {
             @Override
             public void convert(ViewHolder helper, Study item, int postion) {
-                helper.setText(R.id.tv_content,item.getContent());
+                helper.setText(R.id.tv_content,item.getTitle());
             }
         });
         lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)  {
+                StudyDetailActivity.actionStart(getActivity(),list.get(position));
             }
         });
     }

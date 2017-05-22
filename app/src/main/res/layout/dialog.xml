@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkkhaki"
+   >
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:text="添加回复"
+        android:textSize="25dp"
+        android:gravity="center"
+        />
+    <EditText
+        android:id="@+id/et_input"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_below="@+id/tv_title"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical"
+        android:textSize="16sp"
+        android:background="@drawable/view_shape2"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:layout_below="@+id/et_input">
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/view_shape"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="10dp"
+        android:layout_below="@+id/v_line6"
+        android:layout_marginTop="30dp"
+        android:text="取消"
+        android:textColor="#9A9A9A"
+        android:layout_marginBottom="10dp"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/tv_add"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:background="@drawable/view_shape"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/v_line6"
+        android:layout_marginTop="30dp"
+        android:text="确定"
+        android:textColor="#9A9A9A"
+        android:textSize="20sp" />
+    </LinearLayout>
+</RelativeLayout>

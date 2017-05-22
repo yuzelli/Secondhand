@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Secondhand</string>
+    <!--编辑用户信息页面-->
+    <string name="head_pic">头像</string>
+    <string name="user_name">用户名</string>
+    <string name="phone_number">手机号</string>
+    <string name="zhuangye">专业</string>
+
+    <!--注册页面-->
 </resources>

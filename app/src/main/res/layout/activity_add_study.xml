@@ -26,12 +26,38 @@
             android:textSize="25sp" />
 
     </RelativeLayout>
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="资料名称:"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/rl_head"/>
 
     <EditText
         android:id="@+id/et_input"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_below="@+id/rl_head"
+        android:layout_below="@+id/tv"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical"
+        android:textSize="16sp"
+        android:background="@drawable/view_shape2"/>
+    <TextView
+        android:id="@+id/tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="资料名称:"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/et_input"/>
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@+id/tv_1"
         android:layout_margin="10dp"
         android:gravity="center_vertical"
         android:textSize="16sp"
@@ -41,7 +67,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/et_input">
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true">
         <TextView
             android:id="@+id/tv_cancel"
             android:layout_width="0dp"

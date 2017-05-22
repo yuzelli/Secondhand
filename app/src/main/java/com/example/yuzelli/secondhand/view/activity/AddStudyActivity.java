@@ -35,13 +35,15 @@ public class AddStudyActivity extends BaseActivity {
     TextView tvTitle;
     @BindView(R.id.et_input)
     EditText etInput;
+    @BindView(R.id.et_content)
+    EditText et_content;
     @OnClick(R.id.tv_cancel)
     public void Cancel(){
         finish();
     }
     @BindView(R.id.tv_add)
     TextView tvAdd;
-private Context context;
+  private Context context;
     @Override
     protected int layoutInit() {
         return R.layout.activity_add_study;
@@ -54,8 +56,11 @@ private Context context;
         tvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String content = etInput.getText().toString().trim();
-                if (content.equals("")){
+                String title = etInput.getText().toString().trim();
+                String content = et_content.getText().toString().trim();
+                if (title.equals("")){
+                    return;
+                } if (content.equals("")){
                     return;
                 }
 
@@ -63,7 +68,8 @@ private Context context;
                 if (list==null){
                     list = new ArrayList<Study>();
                 }
-                Study s = new Study(content,userInfo.getPass());
+
+                Study s = new Study( list.size(),title,content,userInfo.getPhone());
                 list.add(s);
                 SharePreferencesUtil.saveObject(context,ConstantsUtils.STUDY_LIST,list);
                 finish();
