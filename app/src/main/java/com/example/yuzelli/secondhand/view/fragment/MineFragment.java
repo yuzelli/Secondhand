@@ -12,10 +12,12 @@ import com.example.yuzelli.secondhand.bean.UserInfo;
 import com.example.yuzelli.secondhand.constants.ConstantsUtils;
 import com.example.yuzelli.secondhand.https.SharePreferencesUtil;
 import com.example.yuzelli.secondhand.view.activity.AddStudyActivity;
+import com.example.yuzelli.secondhand.view.activity.UpdataUserInfoActivity;
 import com.example.yuzelli.secondhand.widgets.RoundImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -29,11 +31,13 @@ public class MineFragment extends BaseFragment {
     TextView tvName;
     @BindView(R.id.content)
     TextView content;
-    @BindView(R.id.tv_updata)
-    TextView tvUpdata;
+    @OnClick(R.id.tv_updata)
+    public void tvUpdata(){
+        UpdataUserInfoActivity.actionStart(getActivity());
+    }
     @BindView(R.id.tv_add)
     TextView tvAdd;
-    Unbinder unbinder;
+
 
     @Override
     protected int layoutInit() {

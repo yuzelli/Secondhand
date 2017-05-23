@@ -31,11 +31,13 @@ public class MainActivity extends BaseActivity {
     private LayoutInflater layoutInflater;
 
     //定义数组来存放user的Fragment界面
-    private Class fragmentArray[] = {StudyFragment.class, ShareFragment.class, MineFragment.class};
+    private Class fragmentArray[] = { ShareFragment.class,StudyFragment.class, MineFragment.class};
+    private int tabImageViewArray[] = {R.drawable.ic_study, R.drawable.ic_share,
+            R.drawable.ic_mine_nol};
     //定义数组来存放的按钮图片
 
     //Tab选项卡的文字
-    private String tabtTextViewArray[] = {"学习\n资料", "交流\n分享", "用户\n管理"};
+    private String tabtTextViewArray[] = {"学习资料","交流分享", "用户管理"};
 
 
 
@@ -74,6 +76,8 @@ public class MainActivity extends BaseActivity {
      */
     private View getTabItemView(int index) {
         View view = layoutInflater.inflate(R.layout.main_tab_select_view, null);
+        ImageView imageView = (ImageView) view.findViewById(R.id.img_tabIcon);
+        imageView.setImageResource(tabImageViewArray[index]);
         TextView textView = (TextView) view.findViewById(R.id.tv_tabText);
         textView.setText(tabtTextViewArray[index]);
         return view;

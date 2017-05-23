@@ -1,16 +1,26 @@
 package com.example.yuzelli.secondhand.view.fragment;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.yuzelli.secondhand.R;
+import com.example.yuzelli.secondhand.adapter.BannerAdapter;
 import com.example.yuzelli.secondhand.adapter.DoubleIGoodAdapter;
 import com.example.yuzelli.secondhand.base.BaseFragment;
 import com.example.yuzelli.secondhand.bean.Goods;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +33,22 @@ import butterknife.Unbinder;
  * Created by 51644 on 2017/5/20.
  */
 
-public class ShareFragment extends BaseFragment {
+public class ShareFragment extends BaseFragment implements View.OnTouchListener, ViewPager.OnPageChangeListener, View.OnClickListener {
     @BindView(R.id.rl_head)
     RelativeLayout rlHead;
     @BindView(R.id.lv_list)
     ListView lvList;
+    private ViewPager vp_picture;   //图片轮播
+    private TextView tv_vp_title;   //图片轮播的简介
+    private LinearLayout ll_Point;
 
+    private BannerAdapter adapter;   //图片轮播adapter
+    private ArrayList<ImageView> bannerImageDates;   //图片轮播的图片
+    private View bottomView;
+    private int currentIndex = 300;   //图片下标
+    private long lastTime;           //上一次图片滚动时间
+    private Handler handler;
+    ArrayList<Goods> goodsList;
     @Override
     protected int layoutInit() {
         return R.layout.fragment_share;
@@ -36,25 +56,155 @@ public class ShareFragment extends BaseFragment {
 
     @Override
     protected void bindEvent(View v) {
-        ArrayList<Goods> goodsList = new ArrayList<>();
-        goodsList.add(new Goods("http://img3x9.ddimg.cn/68/36/24221309-1_l_4.jpg",10,"《恋情的终结》","马尔克斯、福克纳推崇备至的大师级作家。历史百大英语小说。这本书里有狂热的爱、狂热的恨、狂热的猜疑、狂热的嫉妒、狂热的信仰，有爱情中所有狂热的情感。"));
-        goodsList.add(new Goods("http://img3x5.ddimg.cn/31/35/24220975-1_l_6.jpg",10,"《听说你喜欢我》","冷漠傲娇神经外科医生VS深情萌宠小学妹，吉祥夜感动千万人治愈之作！听说你喜欢我？好巧，我也喜欢你。"));
-        goodsList.add(new Goods("http://img3x0.ddimg.cn/12/14/24242340-1_l_7.jpg",10,"《半小时漫画中国史》","200万粉丝大号“混子曰”创始人二混子的革命性历史作品。张泉灵鼎力推荐！看半小时漫画，通三千年历史，脉络无比清晰，看完就能倒背。"));
-        goodsList.add(new Goods("http://img3x5.ddimg.cn/20/18/25065335-1_l_12.jpg",10,"《你自以为的极限，只是别人的起点》","你自以为的极限，只是别人的起点（当当独家签名版） 预售下单得亲笔签名，更可参与抽奖赢小米手机、Dior润唇蜜等大奖。百万级畅销书作家特立独行的猫重磅新作，写给渴望突破瓶颈、实现快速跨越的你。"));
+        vp_picture = (ViewPager) v.findViewById(R.id.vp_picture);
+        tv_vp_title = (TextView) v.findViewById(R.id.tv_vp_title);
+        ll_Point = (LinearLayout) v.findViewById(R.id.ll_Point);
+        handler = new Handler();
 
-        goodsList.add(new Goods("http://img3x9.ddimg.cn/3/22/25064229-1_l_2.jpg",10,"《认真地年轻，优雅地老去》","迄今更富诗性与美感的杨绛传记，全彩典藏本。独家收录《钱锺书传》《钱瑗传》，完整展现“我们仨”的动人世界。民国女子大多特立独行，唯独她，不攀高也不怕下跌，用力去爱，用心生活，于从容不迫间，成就百年优雅。"));
-        goodsList.add(new Goods("http://img3x4.ddimg.cn/16/31/25063054-1_l_3.jpg",10,"《去旅行》","入选法国教育部向5-8岁儿童推荐书目，被赞“了解世界的旅行百科书”！傅雷翻译奖大师翻译,《博物》《环球科学》主编推荐！人文、地理、历史、政治尽在其中！赠情景模拟硫酸纸卡，开拓孩子眼界的12种有趣方式。"));
-        goodsList.add(new Goods("http://img3x3.ddimg.cn/49/20/24236833-1_l_3.jpg",10,"《玛格丽特晚安诗》","《晚安，月亮》《逃家小兔》作者、四次凯迪克奖获得者玛格丽特·怀兹·布朗珍贵遗作在中国首次出版，穿越半个世纪的诗意宝藏——献给孩子的诗与远方，中英双语绘本，英语启蒙读物，附赠典藏音乐CD及音频二维码。"));
-        goodsList.add(new Goods("http://img3x5.ddimg.cn/30/15/24244635-1_l_5.jpg",10, "《智能革命》","李彦宏重磅推出新作。“人工智能”正式写入17年政府工作报告，第四次工业革命的号角已经吹响。人工智能和雨果奖获得者刘慈欣联合作序，AR特效互动，与AI界网红小度合影。"));
+
+      goodsList = new ArrayList<>();
+        goodsList.add(new Goods("http://img3x8.ddimg.cn/54/2/20812428-1_b_0.jpg",12,"《中医学概论》","【普通高等教育“十一五”国家级规划教材】"));
+        goodsList.add(new Goods("http://img3x4.ddimg.cn/47/34/22802024-1_b_1.jpg",35,"《军事理论教程》","普通高等学校军事理论教程。"));
+        goodsList.add(new Goods("http://img3x3.ddimg.cn/36/11/24073173-1_b_5.jpg",48,"《电子商务概论》"," 经典教材。自2009年出版以来，共出版3个版次、20多个印次，销售10多万册，10多万学子受益。l 版本常新，历久弥新。教材每3年更新一次版本，使得教师讲课内容始终站在电子商务*前沿。"));
+        goodsList.add(new Goods("http://img3x5.ddimg.cn/98/6/22709015-1_b_1.jpg",88,"《会计学原理》","（会计系列教材）（“十二五”普通高等教育本科国家级规划教材）。"));
+        goodsList.add(new Goods("http://img3x8.ddimg.cn/12/9/20801298-1_b_0.jpg",85,"《C语言程序设计》","现代方法（第2版）(被誉为“近10年来最好的一部C语言著作”) 。"));
+        goodsList.add(new Goods("http://img3x0.ddimg.cn/22/4/22588060-1_b_1.jpg",75,"《ERP客户关系管理实务》","（创业教育规划教材·ERP应用实务系列） "));
+        goodsList.add(new Goods("http://img3x1.ddimg.cn/22/29/24177901-1_b_1.jpg",25,"《网络营销 》","60W图书4.9折封顶 经管励志分会场。"));
+        goodsList.add(new Goods("http://img3x1.ddimg.cn/42/26/20350581-1_b_0.jpg",100, "《系统工程》","系统概念和系统思想是劳动人民在长期社会实践中形成和发展起来的。在人类社会和科学技术发展的历史长河中，系统思想经历了三个主要的历史阶段：从远古时期到15世纪左右是以朴素的辩证逻辑为特点的总体思辨阶段；从16世纪到19世纪是以形式逻辑为特点的机械分解——还原思维阶段；从19世纪末20世纪初到以后是以辩证逻辑为特点的系统思维阶段。"));
+        goodsList.add(new Goods("http://img3x1.ddimg.cn/69/32/22871841-1_b_1.jpg",25,"《运筹学》","面向21世纪课程教材（信息管理与信息系统专业教材系列）"));
+        goodsList.add(new Goods("http://img3x6.ddimg.cn/55/23/23781736-1_b_2.jpg",100, "《数据库原理及应用》","畅销数据库教材，用一个案例贯穿全教材，每个知识点都通过实例进行讲解，兼顾理论和应用。"));
+
         DoubleIGoodAdapter adapter = new DoubleIGoodAdapter(getActivity(),  goodsList);
         lvList.setAdapter(adapter);
+        updataBanner();
 
     }
+    private void updataBanner() {
+        bannerImageDates = new ArrayList<>();
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
 
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .build();
+        for (int i = 0; i < goodsList.size(); i++) {
+            ImageView img = new ImageView(getActivity());
+            //显示图片的配置
+            ImageLoader.getInstance().displayImage(goodsList.get(i).getImg(), img, options);
+            img.setScaleType(ImageView.ScaleType.FIT_XY);
+            bannerImageDates.add(img);
+        }
+        adapter = new BannerAdapter(getActivity(), bannerImageDates);
+        vp_picture.setOnTouchListener(this);
+        vp_picture.setAdapter(adapter);
+        vp_picture.setCurrentItem(300);
+        vp_picture.addOnPageChangeListener(this);
+        handler.postDelayed(runnableForBanner, 2000);
+        addPoint();
+        vp_picture.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                monitorPoint(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+    }
     @Override
     protected void fillData() {
 
     }
 
 
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+    // 设置轮播时间间隔
+    private Runnable runnableForBanner = new Runnable() {
+        @Override
+        public void run() {
+            if (System.currentTimeMillis() - lastTime >= 3000) {
+                vp_picture.setCurrentItem(currentIndex);
+                currentIndex++;
+                lastTime = System.currentTimeMillis();
+            }
+            handler.postDelayed(runnableForBanner, 3000);
+        }
+    };
+    /**
+     * 添加小圆点
+     */
+    private void addPoint() {
+        // 1.根据图片多少，添加多少小圆点
+        ll_Point.removeAllViews();
+
+        for (int i = 0; i < goodsList.size(); i++) {
+            LinearLayout.LayoutParams pointParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            if (i < 1) {
+                pointParams.setMargins(0, 0, 0, 0);
+            } else {
+                pointParams.setMargins(10, 0, 0, 0);
+            }
+            ImageView iv = new ImageView(getActivity());
+            iv.setLayoutParams(pointParams);
+            iv.setBackgroundResource(R.drawable.point_normal);
+            ll_Point.addView(iv);
+        }
+        ll_Point.getChildAt(0).setBackgroundResource(R.drawable.point_select);
+    }
+
+    /**
+     * 判断小圆点
+     *
+     * @param position
+     */
+    private void monitorPoint(int position) {
+        int current = (position - 300) % goodsList.size();
+        for (int i = 0; i <goodsList.size(); i++) {
+            if (i == current) {
+                ll_Point.getChildAt(current).setBackgroundResource(
+                        R.drawable.point_select);
+            } else {
+                ll_Point.getChildAt(i).setBackgroundResource(
+                        R.drawable.point_normal);
+            }
+        }
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        currentIndex = position;
+        lastTime = System.currentTimeMillis();
+        //设置轮播文字改变
+        final int index = position % bannerImageDates.size();
+
+        tv_vp_title.setText(goodsList.get(index).getTitle());
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        return false;
+    }
 }

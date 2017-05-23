@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,8 +35,43 @@ import butterknife.Unbinder;
 public class StudyFragment extends BaseFragment {
     @BindView(R.id.lv_list)
     ListView lvList;
+    @BindView(R.id.et_input)
+    EditText etInput;
+    @OnClick(R.id.tv_find)
+    public void tvFind(){
+        list = (List<Study>) SharePreferencesUtil.readObject(getActivity(), ConstantsUtils.STUDY_LIST);
+        if (list == null) {
+            list = new ArrayList<>();
+        }
+        String con = etInput.getText().toString().trim();
+        if (con.equals("")){
+            return;
+        }
+        Study s2 = null;
+        for (Study s :list){
+            if (s.getTitle().equals(con)){
+                 s2 = s;
+            }
+        }
+        list.clear();
+        list.add(s2);
+        lvList.setAdapter(new CommonAdapter<Study>(getActivity(), list, R.layout.cell_study) {
+            @Override
+            public void convert(ViewHolder helper, Study item, int postion) {
+                helper.setText(R.id.tv_content, item.getTitle());
+            }
+        });
+        lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                StudyDetailActivity.actionStart(getActivity(), list.get(position));
+            }
+        });
+    }
+    Unbinder unbinder;
+
     @OnClick(R.id.tv_register)
-    public void Register(){
+    public void Register() {
         AddStudyActivity.actionStart(context);
     }
 
@@ -57,22 +93,35 @@ public class StudyFragment extends BaseFragment {
     @Override
     protected void fillData() {
         list = (List<Study>) SharePreferencesUtil.readObject(getActivity(), ConstantsUtils.STUDY_LIST);
-        if (list==null){
+        if (list == null) {
             list = new ArrayList<>();
         }
-        lvList.setAdapter(new CommonAdapter<Study>(getActivity(),list,R.layout.cell_study) {
+        lvList.setAdapter(new CommonAdapter<Study>(getActivity(), list, R.layout.cell_study) {
             @Override
             public void convert(ViewHolder helper, Study item, int postion) {
-                helper.setText(R.id.tv_content,item.getTitle());
+                helper.setText(R.id.tv_content, item.getTitle());
             }
         });
         lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)  {
-                StudyDetailActivity.actionStart(getActivity(),list.get(position));
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                StudyDetailActivity.actionStart(getActivity(), list.get(position));
             }
         });
     }
 
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 }
