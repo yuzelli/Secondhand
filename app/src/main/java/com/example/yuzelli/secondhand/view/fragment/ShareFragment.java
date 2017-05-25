@@ -182,17 +182,6 @@ public class ShareFragment extends BaseFragment implements View.OnTouchListener,
         }
 
     }
-
-    @Override
-    public void onPageSelected(int position) {
-        currentIndex = position;
-        lastTime = System.currentTimeMillis();
-        //设置轮播文字改变
-        final int index = position % bannerImageDates.size();
-
-        tv_vp_title.setText(goodsList.get(index).getTitle());
-    }
-
     @Override
     public void onPageScrollStateChanged(int state) {
 
@@ -207,4 +196,15 @@ public class ShareFragment extends BaseFragment implements View.OnTouchListener,
     public boolean onTouch(View v, MotionEvent event) {
         return false;
     }
+    @Override
+    public void onPageSelected(int position) {
+        currentIndex = position;
+        lastTime = System.currentTimeMillis();
+        //设置轮播文字改变
+        final int index = position % bannerImageDates.size();
+
+        tv_vp_title.setText(goodsList.get(index).getTitle());
+    }
+
+
 }
