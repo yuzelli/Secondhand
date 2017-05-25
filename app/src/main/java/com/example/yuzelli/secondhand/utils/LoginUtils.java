@@ -3,7 +3,9 @@ package com.example.yuzelli.secondhand.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * 手机验证工具类
+ */
 public class LoginUtils {
     /**
      * 验证电话号码是否符合格式

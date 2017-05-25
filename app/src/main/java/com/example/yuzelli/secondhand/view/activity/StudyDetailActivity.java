@@ -26,6 +26,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 资料分享详情
+ */
 public class StudyDetailActivity extends BaseActivity {
 
 

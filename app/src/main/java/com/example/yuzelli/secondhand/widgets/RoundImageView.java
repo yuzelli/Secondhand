@@ -20,7 +20,6 @@ import com.example.yuzelli.secondhand.R;
 /**
  * Created by Administrator on 2016/12/6.
  * 自定义圆形头像类
- * @author 李秉龙
  */
 
 public class RoundImageView extends ImageView {

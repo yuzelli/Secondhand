@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * Created by 51644 on 2017/5/21.
+ * 商品列表适配器 ，两列
  */
 
 public class DoubleIGoodAdapter extends BaseAdapter {

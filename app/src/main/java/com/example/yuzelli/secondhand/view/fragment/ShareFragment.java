@@ -31,6 +31,7 @@ import butterknife.Unbinder;
 
 /**
  * Created by 51644 on 2017/5/20.
+ * 书籍界面
  */
 
 public class ShareFragment extends BaseFragment implements View.OnTouchListener, ViewPager.OnPageChangeListener, View.OnClickListener {
@@ -61,7 +62,7 @@ public class ShareFragment extends BaseFragment implements View.OnTouchListener,
         ll_Point = (LinearLayout) v.findViewById(R.id.ll_Point);
         handler = new Handler();
 
-
+      //添加书籍数据
       goodsList = new ArrayList<>();
         goodsList.add(new Goods("http://img3x8.ddimg.cn/54/2/20812428-1_b_0.jpg",12,"《中医学概论》","【普通高等教育“十一五”国家级规划教材】"));
         goodsList.add(new Goods("http://img3x4.ddimg.cn/47/34/22802024-1_b_1.jpg",35,"《军事理论教程》","普通高等学校军事理论教程。"));
@@ -79,6 +80,10 @@ public class ShareFragment extends BaseFragment implements View.OnTouchListener,
         updataBanner();
 
     }
+
+    /**
+     * 设置图片轮播
+     */
     private void updataBanner() {
         bannerImageDates = new ArrayList<>();
         DisplayImageOptions options = new DisplayImageOptions.Builder()

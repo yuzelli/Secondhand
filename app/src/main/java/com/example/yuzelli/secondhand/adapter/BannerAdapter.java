@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2016/12/30.
+ * 图片轮播适配器
  */
 
 public class BannerAdapter extends PagerAdapter {

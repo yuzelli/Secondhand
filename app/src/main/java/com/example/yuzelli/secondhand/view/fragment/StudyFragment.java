@@ -30,6 +30,7 @@ import butterknife.Unbinder;
 
 /**
  * Created by 51644 on 2017/5/20.
+ * 分享资料界面
  */
 
 public class StudyFragment extends BaseFragment {
@@ -45,6 +46,18 @@ public class StudyFragment extends BaseFragment {
         }
         String con = etInput.getText().toString().trim();
         if (con.equals("")){
+            lvList.setAdapter(new CommonAdapter<Study>(getActivity(), list, R.layout.cell_study) {
+                @Override
+                public void convert(ViewHolder helper, Study item, int postion) {
+                    helper.setText(R.id.tv_content, item.getTitle());
+                }
+            });
+            lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    StudyDetailActivity.actionStart(getActivity(), list.get(position));
+                }
+            });
             return;
         }
         Study s2 = null;
@@ -52,9 +65,16 @@ public class StudyFragment extends BaseFragment {
             if (s.getTitle().equals(con)){
                  s2 = s;
             }
+
         }
         list.clear();
-        list.add(s2);
+        if (s2!=null){
+            list.add(s2);
+        }
+        if (list==null||list.size()==0){
+            showToast("没有数据");
+             return;
+        }
         lvList.setAdapter(new CommonAdapter<Study>(getActivity(), list, R.layout.cell_study) {
             @Override
             public void convert(ViewHolder helper, Study item, int postion) {

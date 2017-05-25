@@ -14,6 +14,7 @@ import butterknife.Unbinder;
 
 /**
  * Created by 51644 on 2017/5/16.
+ * fragment的通用配置
  */
 
 public abstract class BaseFragment extends Fragment{

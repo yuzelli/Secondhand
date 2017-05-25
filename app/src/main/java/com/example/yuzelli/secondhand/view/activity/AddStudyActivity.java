@@ -24,6 +24,7 @@ import butterknife.OnClick;
 
 /**
  * Created by 51644 on 2017/5/20.
+ * 添加资料分享
  */
 
 public class AddStudyActivity extends BaseActivity {

@@ -20,7 +20,9 @@ import com.example.yuzelli.secondhand.utils.LoginUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * 登陆界面
+ */
 public class LoginActivity extends BaseActivity {
     private  EditText et_phone;
     private  EditText et_password;
@@ -106,6 +108,7 @@ public class LoginActivity extends BaseActivity {
         for (UserInfo u : list){
             if (u.getPhone().equals(userPhone)&&u.getPass().equals(passWord)){
                 SharePreferencesUtil.saveObject(this,ConstantsUtils.CURRENT_USER,u);
+                finish();
                 MainActivity.actionStart(this);
             }
         }

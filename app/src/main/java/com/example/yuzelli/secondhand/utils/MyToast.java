@@ -16,7 +16,9 @@ import android.widget.Toast;
 import com.example.yuzelli.secondhand.R;
 import com.example.yuzelli.secondhand.app.MyApplication;
 
-
+/**
+ * toast工具类
+ */
 public class MyToast extends Toast{
 
     private static Toast mToast;

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * Created by 51644 on 2017/5/20.
+ * 资料分享实体类
  */
 
 public class Study implements Serializable {

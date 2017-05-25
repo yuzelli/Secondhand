@@ -30,7 +30,9 @@ import java.util.Map;
 
 import okhttp3.Request;
 
-
+/**
+ * 注册界面
+ */
 public class RegisterActivity extends BaseActivity {
 
     private EditText et_phone;

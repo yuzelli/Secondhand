@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.yuzelli.secondhand.R;
@@ -24,6 +26,9 @@ import com.example.yuzelli.secondhand.view.fragment.StudyFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * 主界面
+ */
 public class MainActivity extends BaseActivity {
     //定义FragmentTabHost对象
     private FragmentTabHost tabHost;
@@ -51,6 +56,24 @@ public class MainActivity extends BaseActivity {
         //oncreate方法中的回调
         initView();
     }
+    long exitTime = 0;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            if((System.currentTimeMillis()-exitTime) > 2000){
+                Toast.makeText(this,"再按一次退出程序",Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+
     private void initView() {
         //实例化布局对象
         layoutInflater = LayoutInflater.from(this);

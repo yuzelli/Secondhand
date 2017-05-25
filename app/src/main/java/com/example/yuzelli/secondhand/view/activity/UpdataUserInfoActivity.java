@@ -28,6 +28,7 @@ import butterknife.OnClick;
 
 /**
  * Created by 51644 on 2017/5/21.
+ * 修改用户信息
  */
 
 public class UpdataUserInfoActivity extends BaseActivity {

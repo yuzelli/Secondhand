@@ -10,7 +10,6 @@ import java.util.List;
 
 /**
  * Created by 51644 on 2017/4/7.
- * @author 李秉龙
  * 万能适配器
  */
 

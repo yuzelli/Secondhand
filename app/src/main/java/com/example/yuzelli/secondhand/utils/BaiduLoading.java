@@ -18,6 +18,7 @@ import com.example.yuzelli.secondhand.R;
 
 /**
  * Created by 51644 on 2017/5/3.
+ * 仿百度的等待指示器
  */
 
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * Created by 51644 on 2017/5/21.
+ * 回复实体类
  */
 
 public class Reply implements Serializable {

@@ -12,6 +12,9 @@ import com.example.yuzelli.secondhand.utils.MyToast;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+/**
+ * acitivity通用配置
+ */
 public abstract class BaseActivity extends FragmentActivity {
     private Unbinder unbinder;
     protected Bundle savedInstanceState;

@@ -8,6 +8,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /**
  * Created by 51644 on 2017/5/16.
+ * 全局配置
  */
 
 public class MyApplication extends Application {

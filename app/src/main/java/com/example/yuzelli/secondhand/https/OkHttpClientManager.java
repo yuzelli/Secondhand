@@ -21,7 +21,6 @@ import okhttp3.Response;
 
 /**
  * Created by Administrator on 2016/12/15.
- * @author 李秉龙
  * okhttp3 工具类的封装
  */
 

@@ -20,6 +20,8 @@ import butterknife.ButterKnife;
 
 /**
  * Created by 51644 on 2017/5/21.
+ * 书籍详情
+ *
  */
 
 public class GoodsDetailActivity extends BaseActivity {
