@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="分享资料"
+            android:text="学习资料"
             android:textColor="#ffffff"
             android:textSize="25sp" />
 
